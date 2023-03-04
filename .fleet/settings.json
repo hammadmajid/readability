@@ -1,0 +1,6 @@
+{
+    "toolchains": [{
+        "name": "Rust",
+    },
+    ]
+}
