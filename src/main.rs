@@ -47,13 +47,14 @@ impl FromStr for Method {
             "GunningFog" => Ok(Method::GunningFog),
             "Lix" => Ok(Method::Lix),
             "Smog" => Ok(Method::Smog),
-            _ => Err(())
+            _ => Err(()),
         }
     }
 }
 
 fn exit_with_usage_guide() {
-    println!("\
+    println!(
+        "\
     Usage: cargo run [method] [text]
 
         [method]    The test method you want to use, possible values are:
@@ -61,6 +62,7 @@ fn exit_with_usage_guide() {
                         ColemanLiauIndex
 
         [text]      The string of text you want to test.
-    ");
+    "
+    );
     process::exit(1);
 }
