@@ -27,6 +27,12 @@ fn main() {
 enum Method {
     DaleChallScore,
     ColemanLiauIndex,
+    AutomatedReadabilityIndex,
+    FleschKincaidGradeLevel,
+    FleschKincaidReadingEase,
+    GunningFog,
+    Lix,
+    Smog,
 }
 
 impl FromStr for Method {
@@ -36,6 +42,12 @@ impl FromStr for Method {
         match s {
             "DaleChallScore" => Ok(Method::DaleChallScore),
             "ColemanLiauIndex" => Ok(Method::ColemanLiauIndex),
+            "AutomatedReadabilityIndex" => Ok(Method::AutomatedReadabilityIndex),
+            "FleschKincaidGradeLevel" => Ok(Method::FleschKincaidGradeLevel),
+            "FleschKincaidReadingEase" => Ok(Method::FleschKincaidReadingEase),
+            "GunningFog" => Ok(Method::GunningFog),
+            "Lix" => Ok(Method::Lix),
+            "Smog" => Ok(Method::Smog),
             _ => Err(())
         }
     }
