@@ -11,14 +11,13 @@ fn main() {
 
     let text = args[2].clone();
 
-    #[allow(non_snake_case)]
-    let method = match Method::from_str(&args[1]) {
-        Ok(Method) => Method,
-        Err(_err) => {
-            exit_with_usage_guide();
-            return;
-        }
-    };
+    let method = Method::from_str(&args[1]).unwrap_or_else(|error| {
+        exit_with_usage_guide();
+
+        // the below line is unreachable because of the above fn call
+        // wrote it to prevent compiler from complaining
+        panic!("Error: {:?}", error);
+    });
 
     println!("text: {}\nmethod: {:?}", text, method);
 }
