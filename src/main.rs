@@ -4,17 +4,20 @@ use clap::{Parser, ValueEnum};
 
 fn main() {
     let cli = Cli::parse();
+    let grade: i8;
 
     match cli.method {
-        Method::DaleChallScore => calc::dale_chall_score(cli.text),
-        Method::ColemanLiauIndex => calc::coleman_liau_index(cli.text),
-        Method::AutomatedReadabilityIndex => calc::automated_readability_index(cli.text),
-        Method::FleschKincaidGradeLevel => calc::flesch_kincaid_grade_level(cli.text),
-        Method::FleschKincaidReadingEase => calc::flesch_kincaid_reading_ease(cli.text),
-        Method::GunningFog => calc::gunning_fog(cli.text),
-        Method::Lix => calc::lix(cli.text),
-        Method::Smog => calc::smog(cli.text),
-    }
+        Method::DaleChallScore => grade = calc::dale_chall_score(cli.text),
+        Method::ColemanLiauIndex => grade = calc::coleman_liau_index(cli.text),
+        Method::AutomatedReadabilityIndex => grade = calc::automated_readability_index(cli.text),
+        Method::FleschKincaidGradeLevel => grade = calc::flesch_kincaid_grade_level(cli.text),
+        Method::FleschKincaidReadingEase => grade = calc::flesch_kincaid_reading_ease(cli.text),
+        Method::GunningFog => grade = calc::gunning_fog(cli.text),
+        Method::Lix => grade = calc::lix(cli.text),
+        Method::Smog => grade = calc::smog(cli.text),
+    };
+
+    println!("Grade: {}", grade);
 }
 
 #[derive(Parser, Debug)]
