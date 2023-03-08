@@ -1,31 +1,22 @@
-use std::env;
-use std::process;
-use std::str::FromStr;
+use clap::{Parser, ValueEnum};
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
+    let cli = Cli::parse();
 
-    if args.len() != 3 {
-        exit_with_usage_guide();
-    }
-
-    let text = args[2].clone();
-    let method = Method::from_str(&args[1]);
-
-    match method {
-        Ok(ref _method) => (),
-        Err(_err) => {
-            exit_with_usage_guide();
-            ()
-        }
-    }
-
-    let method = method.unwrap();
-
-    println!("text: {}\nmethod: {:?}", text, method);
+    println!("{:?}", cli);
 }
 
-#[derive(Debug)]
+#[derive(Parser, Debug)]
+struct Cli {
+    /// The string of text that will be tested
+    text: String,
+
+    /// The method that will be used to test
+    #[arg(value_enum)]
+    method: Method,
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
 enum Method {
     DaleChallScore,
     ColemanLiauIndex,
@@ -35,43 +26,4 @@ enum Method {
     GunningFog,
     Lix,
     Smog,
-}
-
-impl FromStr for Method {
-    type Err = ();
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s {
-            "DaleChallScore" => Ok(Method::DaleChallScore),
-            "ColemanLiauIndex" => Ok(Method::ColemanLiauIndex),
-            "AutomatedReadabilityIndex" => Ok(Method::AutomatedReadabilityIndex),
-            "FleschKincaidGradeLevel" => Ok(Method::FleschKincaidGradeLevel),
-            "FleschKincaidReadingEase" => Ok(Method::FleschKincaidReadingEase),
-            "GunningFog" => Ok(Method::GunningFog),
-            "Lix" => Ok(Method::Lix),
-            "Smog" => Ok(Method::Smog),
-            _ => Err(()),
-        }
-    }
-}
-
-fn exit_with_usage_guide() {
-    println!(
-        "\
-    Usage: cargo run [method] [text]
-
-        [method]    The test method you want to use, possible values are:
-                        DaleChallScore
-                        ColemanLiauIndex
-                        AutomatedReadabilityIndex
-                        FleschKincaidGradeLevel
-                        FleschKincaidReadingEase
-                        GunningFog
-                        Lix
-                        Smog
-
-        [text]      The string of text you want to test.
-    "
-    );
-    process::exit(1);
 }
