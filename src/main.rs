@@ -60,6 +60,12 @@ fn exit_with_usage_guide() {
         [method]    The test method you want to use, possible values are:
                         DaleChallScore
                         ColemanLiauIndex
+                        AutomatedReadabilityIndex
+                        FleschKincaidGradeLevel
+                        FleschKincaidReadingEase
+                        GunningFog
+                        Lix
+                        Smog
 
         [text]      The string of text you want to test.
     "
