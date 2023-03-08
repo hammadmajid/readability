@@ -10,14 +10,17 @@ fn main() {
     }
 
     let text = args[2].clone();
+    let method = Method::from_str(&args[1]);
 
-    let method = Method::from_str(&args[1]).unwrap_or_else(|error| {
-        exit_with_usage_guide();
+    match method {
+        Ok(ref _method) => (),
+        Err(_err) => {
+            exit_with_usage_guide();
+            ()
+        }
+    }
 
-        // the below line is unreachable because of the above fn call
-        // wrote it to prevent compiler from complaining
-        panic!("Error: {:?}", error);
-    });
+    let method = method.unwrap();
 
     println!("text: {}\nmethod: {:?}", text, method);
 }
